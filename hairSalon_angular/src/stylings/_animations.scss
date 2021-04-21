@@ -1,0 +1,16 @@
+.slide-up {
+  animation: slideUp 800ms ease-in-out;
+}
+
+@mixin slideUp($duration) {
+  animation: ease-in-out #{$duration} slideUp;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
