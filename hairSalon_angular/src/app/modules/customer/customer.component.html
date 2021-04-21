@@ -1,0 +1,22 @@
+
+<h1>CUSTOMER</h1>
+
+<form (ngSubmit)="handlePhoneNumber()">
+  <label for="phoneNumber">Enter Your Phone Number</label>
+  <input name="phoneNumber" [(ngModel)]="phoneNumber" id="phoneNumber" type="tel" />
+
+  <app-button type="submit">Submit</app-button>
+</form>
+
+<h3 *ngIf="customer">Hello, {{customer.fullName}}</h3>
+
+<div *ngIf="customer" class="customer-view slide-up">
+  <div class="left">
+    <app-customer-card [customer]="customer"></app-customer-card>
+  </div>
+
+  <app-card class="right">
+    <app-new-booking [customer]="customer"></app-new-booking>
+  </app-card>
+
+</div>

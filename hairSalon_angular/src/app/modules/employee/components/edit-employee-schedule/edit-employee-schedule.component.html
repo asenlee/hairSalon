@@ -1,0 +1,18 @@
+<app-card [cardConfig]="cardConfig">
+  <form (ngSubmit)="handleSubmit()">
+    <div class="day-row" *ngFor="let schedule of scheduleEditor.weekDays | keyvalue: returnZero">
+      <input type="checkbox" [checked]="schedule.value.selected" (change)="handleDaySelect(schedule.key)" />
+      <span>{{schedule.key | uppercase}}</span>
+
+      <ng-container *ngIf="schedule.value.selected">
+        <input #shiftStart max="22" type="number" (change)="schedule.value.schedule.shiftStart = $event.target.value" [value]="schedule.value.schedule.shiftStart">
+        <input [min]="shiftStart.value" type="number" (change)="schedule.value.schedule.end = $event.target.value" [value]="schedule.value.schedule.end">
+      </ng-container>
+    </div>
+
+    <hr />
+    <app-button type="submit">
+      <app-icon-with-info [icon]="icons.wrench" info="Update"></app-icon-with-info>
+    </app-button>
+  </form>
+</app-card>

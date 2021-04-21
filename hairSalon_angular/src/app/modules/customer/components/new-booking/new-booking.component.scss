@@ -1,0 +1,17 @@
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+
+  & * {
+    width: 100%;
+  }
+
+  .confirm-title {
+    text-align: center;
+    text-decoration: underline;
+    font-weight: 900;
+  }
+}

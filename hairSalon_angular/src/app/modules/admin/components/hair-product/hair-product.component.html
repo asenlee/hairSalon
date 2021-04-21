@@ -1,0 +1,65 @@
+<div class="main-container">
+  <div class="action-panel">
+    <app-button (click)="getAll()">Get All</app-button>
+    <app-button (click)="getSalonsSellAll()">Get Salons who sell all Products</app-button>
+    <app-button (click)="getBrands()">Get All Brands</app-button>
+    <app-button (click)="getPopularBrands()">Get Popular Brands</app-button>
+    <app-button (click)="getExpensiveBrands()">Get Expensive Brands</app-button>
+  </div>
+  <div class="info-panel">
+    <ng-container [ngSwitch]="currentViewType">
+
+      <ng-container *ngSwitchCase="viewType.ALL">
+        <app-card *ngFor="let product of admin.hairProducts">
+          <div class="info-container">
+            <div class="left">
+              <app-icon-with-info [icon]="icons.spray" [info]="product.productName"></app-icon-with-info>
+              <app-icon-with-info [icon]="icons.brand" [info]="product.brand"></app-icon-with-info>
+              <div>
+                <fa-icon
+                  *ngFor="let a of product.expensivenessArray"
+                  [icon]="icons.dollar">
+                </fa-icon>
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="viewType.SELLS_ALL">
+        <app-salon-card *ngFor="let salon of admin.salonsThatSellAll" [salon]="salon">
+        </app-salon-card>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="viewType.BRANDS">
+        <app-card *ngFor="let brand of admin.brands">
+          <div class="info-container">
+            <div class="left">
+              <app-icon-with-info
+                [icon]="icons.brand"
+                [info]="brand.brand"></app-icon-with-info>
+              <app-icon-with-info
+                *ngIf="brand.totalPrice"
+                [icon]="icons.dollar"
+                [info]="'Total Price: ' + brand.totalPrice"></app-icon-with-info>
+            </div>
+            <div class="right">
+              <app-icon-with-info
+                [icon]="icons.hash"
+                [info]="'Total Products: ' + brand.numProducts"></app-icon-with-info>
+              <app-icon-with-info
+                *ngIf="brand.totalQuantity"
+                [icon]="icons.hash"
+                [info]="'Total Quantity: ' + brand.totalQuantity"></app-icon-with-info>
+              <app-icon-with-info
+                *ngIf="brand.avgPrice"
+                [icon]="icons.dollar"
+                [info]="'Avg Price: ' + brand.avgPrice"></app-icon-with-info>
+            </div>
+          </div>
+        </app-card>
+      </ng-container>
+
+    </ng-container>
+  </div>
+</div>

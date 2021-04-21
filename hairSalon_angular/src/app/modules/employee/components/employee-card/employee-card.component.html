@@ -1,0 +1,60 @@
+<app-card [cardConfig]="cardConfig">
+  <div class="info-card">
+    <div class="info-panel">
+      <div class="info-container">
+        <div class="left">
+          <app-icon-with-info [icon]="icons.user" [info]="emp.fullName"></app-icon-with-info>
+          <app-icon-with-info [icon]="icons.shuttle" [info]="emp.position"></app-icon-with-info>
+        </div>
+
+        <div class="right">
+          <app-icon-with-info [icon]="icons.id" [info]="emp.empID"></app-icon-with-info>
+          <app-icon-with-info [icon]="icons.store" [info]="emp.shopID"></app-icon-with-info>
+        </div>
+      </div>
+
+      <ng-container *ngIf="showSchedule">
+        <div class="btn-container">
+          <ng-container *ngIf="!showScheduleList; else hideScheduleBtn">
+            <app-button (click)="getSchedule()">
+              <app-icon-with-info [icon]="icons.show" info="Show Schedule"></app-icon-with-info>
+            </app-button>
+          </ng-container>
+          <ng-template #hideScheduleBtn>
+            <app-button (click)="hideSchedule()">
+              <app-icon-with-info [icon]="icons.hide" info="Hide Schedule"></app-icon-with-info>
+            </app-button>
+          </ng-template>
+
+          <app-button *ngIf="!hideEditScheduleBtn" (click)="editSchedule()">
+            <app-icon-with-info [icon]="icons.pen" info="Edit Schedule"></app-icon-with-info>
+          </app-button>
+        </div>
+
+        <ng-container *ngIf="showScheduleList">
+          <ng-container *ngIf="emp.schedule && emp.schedule.length > 0; else noSchedule">
+            <div class="info-container slide-up" *ngFor="let s of emp.schedule">
+              <div class="left">
+                <app-icon-with-info [icon]="icons.day" [info]="s.day.toUpperCase()"></app-icon-with-info>
+              </div>
+              <div class="right">
+                <app-icon-with-info [icon]="icons.full" [info]="s.startMoment.format('h:mm a')"></app-icon-with-info>
+                <app-icon-with-info [icon]="icons.empty" [info]="s.endMoment.format('h:mm a')"></app-icon-with-info>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <app-edit-employee-schedule class="slide-up" *ngIf="showEditSchedule" [employee]="emp"></app-edit-employee-schedule>
+
+        <ng-template #noSchedule>
+          <app-icon-with-info [icon]="icons.minus" info="No Schedule Found"></app-icon-with-info>
+        </ng-template>
+      </ng-container>
+    </div>
+
+    <div class="action-panel" *ngIf="!hideEmployeeDeleteBtn" (click)="deleteEmployee()">
+      <app-icon-with-info [icon]="icons.trash"></app-icon-with-info>
+    </div>
+  </div>
+</app-card>

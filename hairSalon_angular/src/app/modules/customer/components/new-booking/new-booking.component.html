@@ -1,0 +1,47 @@
+
+<h3>Book a Hair Appointment</h3>
+
+<form *ngIf="newBooking" [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <label for="salon">Select Salon</label>
+  <select id="salon" formControlName="shopID" #salonSelect (ngModelChange)="handleSalonSelect()">
+    <option *ngFor="let salon of newBooking.salonList" [value]="salon.shopID">{{salon.shopName}}</option>
+  </select>
+
+  <div class="slide-up" *ngIf="salonSelect.value && newBooking.salon">
+    <app-salon-card
+      [salon]="newBooking.salon"
+      [hideShowEmployeesBtn]="true"></app-salon-card>
+
+    <label for="employee">Select Hair Stylist</label>
+    <select id="employee" formControlName="empID" #employeeSelect (ngModelChange)="handleEmployeeSelect()">
+      <option *ngFor="let emp of newBooking.salon.employees" [value]="emp.empID">{{emp.fullName}}</option>
+    </select>
+
+    <div class="slide-up" *ngIf="employeeSelect.value">
+      <app-employee-card
+        [employee]="newBooking.employee"
+        hideEditScheduleBtn="true"
+        hideEmployeeDeleteBtn="true"></app-employee-card>
+
+      <label for="date">Select Booking Date</label>
+      <input type="date" id="date" formControlName="date" (ngModelChange)="handleDateSelect()" #dateSelect />
+
+      <div class="slide-up" *ngIf="newBooking.employeeHours.length > 0">
+        <label for="time">Select Time</label>
+        <select id="time" formControlName="time" #timeSelect (ngModelChange)="handleTimeSelect()">
+          <option *ngFor="let h of newBooking.employeeHours" [value]="h">{{h}}</option>
+        </select>
+
+        <div class="slide-up" *ngIf="timeSelect.value">
+          <h3 class="confirm-title">Confirm Booking Details</h3>
+          <app-booking-card [booking]="newBooking"></app-booking-card>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <hr />
+  <app-button [disabled]="!form.valid" type="submit">Create Booking</app-button>
+</form>

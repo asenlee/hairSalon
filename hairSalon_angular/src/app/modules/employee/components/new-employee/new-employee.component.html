@@ -1,0 +1,32 @@
+<form [formGroup]="formGroup" (ngSubmit)="handleSubmit()">
+  <label for="salon">
+    Salon
+    <select id="salon" formControlName="shopID">
+      <option *ngFor="let salon of newEmployee.salonList" [value]="salon.shopID">
+        {{salon.shopName}}
+      </option>
+    </select>
+  </label>
+
+  <label>
+    Employee ID
+    <input type="number" formControlName="empID" />
+  </label>
+
+  <label>
+    First Name
+    <input formControlName="firstName" />
+  </label>
+
+  <label>
+    Last Name
+    <input formControlName="lastName" />
+  </label>
+  <label>
+    Position
+    <input formControlName="position" />
+  </label>
+
+  <app-button type="submit" [disabled]="!this.formGroup.valid">Create</app-button>
+
+</form>

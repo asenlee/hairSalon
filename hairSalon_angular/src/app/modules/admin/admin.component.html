@@ -1,0 +1,45 @@
+<div class="main-container">
+  <div class="left-panel">
+    <h1>Admin</h1>
+
+    <div class="divider"></div>
+
+    <div class="admin-actions">
+      <a *ngFor="let view of adminViews" (click)="handleActionClick(view)">
+        <app-icon-with-info [icon]="icons.right" [info]="view.btnText"></app-icon-with-info>
+      </a>
+    </div>
+  </div>
+
+  <div class="main-panel" *ngIf="currentView">
+    <app-card [cardConfig]="headerConfig">
+      {{currentView.viewTitle}}
+    </app-card>
+
+    <router-outlet></router-outlet>
+
+    <app-card *ngIf="list" [cardConfig]="listViewConfig" class="list-view slide-up">
+      <ng-container [ngSwitch]="currentView.type">
+
+        <ng-container *ngSwitchCase="viewTypes.CUSTOMER">
+          <app-customer-card *ngFor="let customer of admin.customers" [customer]="customer"></app-customer-card>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="viewTypes.SALON">
+          <ng-container *ngFor="let salon of admin.salons">
+            <app-salon-card [salon]="salon"></app-salon-card>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="viewTypes.HAIR_PRODUCTS">
+          <app-hair-product></app-hair-product>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="viewTypes.NEW_EMPLOYEE">
+          <app-new-employee></app-new-employee>
+        </ng-container>
+
+      </ng-container>
+    </app-card>
+  </div>
+</div>

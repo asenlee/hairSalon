@@ -1,0 +1,22 @@
+<div class="main-container">
+
+  <div class="alert-container">
+    <app-alert-dialog></app-alert-dialog>
+  </div>
+
+  <div class="view-panel">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="user-selection">
+    <fa-icon [icon]="icons.user" routerLinkActive="active-link" routerLink="/customer">
+      Customer
+    </fa-icon>
+    <fa-icon [icon]="icons.admin" routerLinkActive="active-link" routerLink="/admin">
+      Admin
+    </fa-icon>
+    <fa-icon [icon]="icons.store" routerLinkActive="active-link" routerLink="/salon">
+      Salon
+    </fa-icon>
+  </div>
+</div>
