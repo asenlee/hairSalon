@@ -1,4 +1,4 @@
-# CPSC304Project_project_h8s1b_l9u2b_y4v2b
+# HairSalon
 
 ## To start Server:
 >cd hairSalon-node
